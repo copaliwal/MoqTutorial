@@ -20,6 +20,11 @@
                 return CreditCardApplicationDecision.AutoAccepted;
             }
 
+            if(_validator.LicenseKey == "EXPIRED")
+            {
+                return CreditCardApplicationDecision.ReferredToHuman;
+            }
+
             _validator.IsValid(application.FrequentFlyerNumber, out var isValidFrequentFlyerNumber);
 
             if (!isValidFrequentFlyerNumber)
@@ -38,6 +43,6 @@
             }
 
             return CreditCardApplicationDecision.ReferredToHuman;
-        }       
+        }
     }
 }
