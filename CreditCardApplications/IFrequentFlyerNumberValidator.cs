@@ -11,6 +11,13 @@ namespace CreditCardApplications
     {
         IServiceName Service { get; set; }
     }
+
+    public enum ValidationMode
+    {
+        Quick,
+        Detailed
+    }
+
     public interface IFrequentFlyerNumberValidator
     {
         bool IsValid(string frequentFlyerNumber);
@@ -18,5 +25,7 @@ namespace CreditCardApplications
         string LicenseKey { get; }
 
         public IServiceInformation ServiceInformation { get; }
+
+        ValidationMode ValidationMode { get; set; }
     }
 }

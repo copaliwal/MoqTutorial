@@ -30,6 +30,9 @@
                 return CreditCardApplicationDecision.AutoAccepted;
             }
 
+            _validator.ValidationMode = application.Age >= 30 ? ValidationMode.Detailed :
+                                                                ValidationMode.Quick;
+
             _validator.IsValid(application.FrequentFlyerNumber, out var isValidFrequentFlyerNumber);
 
             if (!isValidFrequentFlyerNumber)

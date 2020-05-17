@@ -36,5 +36,11 @@ namespace CreditCardApplications
         { 
             get => throw new NotImplementedException("For demo purpose"); 
         }
+
+        public ValidationMode ValidationMode
+        {
+            get => throw new NotImplementedException("For demo purposes");
+            set => throw new NotImplementedException("For demo purposes");
+        }
     }
 }
