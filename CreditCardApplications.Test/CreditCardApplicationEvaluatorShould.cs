@@ -39,7 +39,23 @@ namespace CreditCardApplications.Test
             Mock<IFrequentFlyerNumberValidator> mockValidator =
                 new Mock<IFrequentFlyerNumberValidator>();
 
-            mockValidator.Setup(x => x.IsValid("xyz")).Returns(true);
+            // Return True, only when the parameter value exactly match
+            //mockValidator.Setup(x => x.IsValid("xyz")).Returns(true);
+
+            // Return True, only when any string value parameter passes
+            //mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+
+            // Return True, only when the parameter value start with 'x'
+            //mockValidator.Setup(x => x.IsValid(It.Is<string>(number => number.StartsWith('x')))).Returns(true);
+
+            // Return True, only when the parameter value is "x" or "y" or "z"
+            //mockValidator.Setup(x => x.IsValid(It.IsIn("x", "y", "z"))).Returns(true);
+
+            // Return True, only when the parameter value between 'b' and 'z'
+            //mockValidator.Setup(x => x.IsValid(It.IsInRange("b", "z", Range.Inclusive))).Returns(true);
+
+            // Return True, only when the parameter value match the Regex expression
+            mockValidator.Setup(x => x.IsValid(It.IsRegex("[a-z]",System.Text.RegularExpressions.RegexOptions.None))).Returns(true);
 
             var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
