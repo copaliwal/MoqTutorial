@@ -20,7 +20,7 @@
                 return CreditCardApplicationDecision.AutoAccepted;
             }
 
-            var isValidFrequentFlyerNumber = _validator.IsValid(application.FrequentFlyerNumber);
+            _validator.IsValid(application.FrequentFlyerNumber, out var isValidFrequentFlyerNumber);
 
             if (!isValidFrequentFlyerNumber)
             {
