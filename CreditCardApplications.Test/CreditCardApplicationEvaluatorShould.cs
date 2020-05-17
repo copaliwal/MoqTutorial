@@ -117,13 +117,15 @@ namespace CreditCardApplications.Test
             var isValid = true;
             mockValidator.Setup(x => x.IsValid(It.IsAny<string>(), out isValid));
 
-            var mockServeName = new Mock<IServiceName>();
-            mockServeName.Setup(x => x.ServiceName).Returns("AIR");
+            //var mockServeName = new Mock<IServiceName>();
+            //mockServeName.Setup(x => x.ServiceName).Returns("AIR");
 
-            var mockServiceInfo = new Mock<IServiceInformation>();
-            mockServiceInfo.Setup(x => x.Service).Returns(mockServeName.Object);
+            //var mockServiceInfo = new Mock<IServiceInformation>();
+            //mockServiceInfo.Setup(x => x.Service).Returns(mockServeName.Object);
 
-            mockValidator.Setup(x => x.ServiceInformation).Returns(mockServiceInfo.Object);
+            //mockValidator.Setup(x => x.ServiceInformation).Returns(mockServiceInfo.Object);
+
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("AIR");
 
             var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
