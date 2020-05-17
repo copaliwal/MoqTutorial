@@ -31,5 +31,10 @@ namespace CreditCardApplications
                 throw new NotImplementedException("For demo purposes");
             }
         }
+
+        public IServiceInformation ServiceInformation 
+        { 
+            get => throw new NotImplementedException("For demo purpose"); 
+        }
     }
 }

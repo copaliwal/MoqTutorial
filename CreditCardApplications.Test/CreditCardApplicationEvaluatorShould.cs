@@ -108,5 +108,30 @@ namespace CreditCardApplications.Test
 
             Assert.Equal(CreditCardApplicationDecision.ReferredToHuman, decision);
         }
+
+        [Fact]
+        public void ReferWhenServiceNameAir()
+        {
+            Mock<IFrequentFlyerNumberValidator> mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+            var isValid = true;
+            mockValidator.Setup(x => x.IsValid(It.IsAny<string>(), out isValid));
+
+            var mockServeName = new Mock<IServiceName>();
+            mockServeName.Setup(x => x.ServiceName).Returns("AIR");
+
+            var mockServiceInfo = new Mock<IServiceInformation>();
+            mockServiceInfo.Setup(x => x.Service).Returns(mockServeName.Object);
+
+            mockValidator.Setup(x => x.ServiceInformation).Returns(mockServiceInfo.Object);
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+            var application = new CreditCardApplication() { Age = 42 };
+
+            var decision = sut.Evaluate(application);
+
+            Assert.Equal(CreditCardApplicationDecision.AutoAccepted, decision);
+        }
     }
 }

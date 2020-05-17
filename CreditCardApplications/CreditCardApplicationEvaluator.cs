@@ -25,6 +25,11 @@
                 return CreditCardApplicationDecision.ReferredToHuman;
             }
 
+            if(_validator.ServiceInformation.Service.ServiceName == "AIR")
+            {
+                return CreditCardApplicationDecision.AutoAccepted;
+            }
+
             _validator.IsValid(application.FrequentFlyerNumber, out var isValidFrequentFlyerNumber);
 
             if (!isValidFrequentFlyerNumber)
