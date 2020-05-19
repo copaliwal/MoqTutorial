@@ -192,5 +192,20 @@ namespace CreditCardApplications.Test
             //Verifies the method called/executed number of times
             //mockValidator.Verify(x => x.IsValid(It.IsAny<string>()), Times.Exactly(2));
         }
+
+        [Fact]
+        public void CheckLicenseKeyForLowIncomeApplications()
+        {
+            var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("OK");
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+            var application = new CreditCardApplication { GrossAnnualIncome = 99_000 };
+
+            sut.Evaluate(application);
+
+            mockValidator.VerifyGet(x => x.ServiceInformation.Service.ServiceName, Times.Once);
+        }
     }
 }
