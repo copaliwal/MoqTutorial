@@ -24,6 +24,8 @@ namespace CreditCardApplications.Test
         {
             Mock<IFrequentFlyerNumberValidator> mockValidator = new Mock<IFrequentFlyerNumberValidator>();
 
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("ABC");
+
             var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
             var application = new CreditCardApplication { Age = 19 };
@@ -57,8 +59,8 @@ namespace CreditCardApplications.Test
             // Return True, only when the parameter value match the Regex expression
             //mockValidator.Setup(x => x.IsValid(It.IsRegex("[a-z]",System.Text.RegularExpressions.RegexOptions.None))).Returns(true);
 
-            bool isValid = true;
-            mockValidator.Setup(x => x.IsValid(It.IsAny<string>(), out isValid));
+            mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("ABC");
 
             var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
@@ -80,7 +82,12 @@ namespace CreditCardApplications.Test
             Mock<IFrequentFlyerNumberValidator> mockValidator =
                 new Mock<IFrequentFlyerNumberValidator>(MockBehavior.Strict);
 
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("ABC");
+            mockValidator.Setup(x => x.LicenseKey).Returns("NEW");
+            mockValidator.SetupProperty(x => x.ValidationMode);
+
             mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
+            
 
             var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
