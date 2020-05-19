@@ -166,5 +166,31 @@ namespace CreditCardApplications.Test
 
             Assert.Equal(ValidationMode.Detailed, mockValidator.Object.ValidationMode);
         }
+
+        [Fact]
+        public void ShouldValidateFrequentFlyerNumberForLowIncomeApplications()
+        {
+            var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+
+            mockValidator.Setup(x => x.ServiceInformation.Service.ServiceName).Returns("OK");
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
+
+            var application = new CreditCardApplication { FrequentFlyerNumber = "q" };
+
+            sut.Evaluate(application);
+
+            //Verifies the method has been has been called
+            //mockValidator.Verify(x => x.IsValid(It.IsAny<string>()));
+
+            //Verifies the method never called/executed
+            //mockValidator.Verify(x => x.IsValid(It.IsAny<string>()), Times.Never);
+
+            //Verifies the method called/executed onces
+            mockValidator.Verify(x => x.IsValid(It.IsAny<string>()), Times.Once);
+
+            //Verifies the method called/executed number of times
+            //mockValidator.Verify(x => x.IsValid(It.IsAny<string>()), Times.Exactly(2));
+        }
     }
 }
